@@ -1,7 +1,17 @@
+#include "gdal_priv.h"
+#include "cpl_conv.h" // for CPLMalloc()
 #include <iostream>
-#include "Core/test.h"
-int main(int argc, char *argv[])
+int main()
 {
-    test();
-    std::cout << "hello world!" << std::endl;
+    GDALDataset* poDataset;
+    GDALAllRegister();
+    poDataset = (GDALDataset*)GDALOpen("test.tiff", GA_ReadOnly);
+    if (poDataset == NULL)
+    {
+        std::cout << "Can't read" << std::endl;
+    }
+    else
+    {
+        std::cout << "Read Successful" << std::endl;
+    }
 }
