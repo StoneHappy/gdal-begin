@@ -1,0 +1,3 @@
+[submodule "src/Vendors/KJEditor"]
+	path = src/Vendors/KJEditor
+	url = https://github.com/StoneHappy/KJEditor.git
