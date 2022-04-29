@@ -5,7 +5,7 @@ int main()
 {
     GDALDataset* poDataset;
     GDALAllRegister();
-    std::string filename = "D:/codes/gdal_projs/gdal-begin/data/1m_DTM.tif";
+    std::string filename = "../../../../data/1m_DTM.tif";
     poDataset = (GDALDataset*)GDALOpen(filename.c_str(), GA_ReadOnly);
 
     float xright, ybottom, x, y, width, height;
