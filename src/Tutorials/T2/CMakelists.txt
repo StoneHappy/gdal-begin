@@ -1,4 +1,4 @@
-set(TARGET_NAME "Tutorial01")
+set(TARGET_NAME "Tutorial02")
 # just for qt
 # set(CMAKE_AUTOUIC ON)
 # set(CMAKE_AUTOMOC ON)
