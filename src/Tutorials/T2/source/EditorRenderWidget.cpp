@@ -6,6 +6,7 @@
 #include <Function/Render/Interface/Renderer.h>
 #include <Function/Event/EventSystem.h>
 #include <Function/Scene/EditCamera.h>
+#include <Function/Scene/Scene.h>
 #include <qelapsedtimer.h>
 #include <qevent.h>
 #include <QtImGui.h>
@@ -13,8 +14,10 @@
 #include <ImGuizmo.h>
 #include <Function/Scene/Light.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "test.h"
 namespace Stone
 {
+    TiffMesh* testmesh;
 	EditorRendererWidget::EditorRendererWidget(QWidget* parent)
 		: QOpenGLWidget(parent), m_MousePos(std::make_shared<MousePos>(0.0f, 0.0f)), m_MouseAngle(std::make_shared<MouseAngle>(0.0f, 0.0f))
 	{}
@@ -24,9 +27,13 @@ namespace Stone
 
 	void EditorRendererWidget::initializeGL()
 	{
+        
         PublicSingleton<Engine>::getInstance().renderInitialize();
         PublicSingleton<Engine>::getInstance().logicalInitialize();
         QtImGui::initialize(this);
+
+        std::string filename = "../../../../data/drycreek.tif";
+        testmesh = new TiffMesh(filename);
 	}
 
 	void EditorRendererWidget::resizeGL(int w, int h)
@@ -40,7 +47,12 @@ namespace Stone
         QElapsedTimer timer;
         timer.start();
         PublicSingleton<Engine>::getInstance().logicalTick();
-        PublicSingleton<Engine>::getInstance().renderTick(defaultFramebufferObject());
+        PublicSingleton<Renderer>::getInstance().begin();
+        PublicSingleton<Scene>::getInstance().renderTick();
+        //_texture->bind(0);
+        PublicSingleton<Renderer>::getInstance().render(testmesh);
+
+        PublicSingleton<Renderer>::getInstance().end(defaultFramebufferObject());
         renderImGui();
         update();
         PublicSingleton<Engine>::getInstance().DeltaTime = timer.nsecsElapsed()* 1.0e-9f;
