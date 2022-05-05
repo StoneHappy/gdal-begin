@@ -14,10 +14,13 @@
 #include <ImGuizmo.h>
 #include <Function/Scene/Light.h>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <Resource/Components/Transform.h>
 #include "test.h"
 namespace Stone
 {
     TiffMesh* testmesh;
+    TransformComponent* transformcomponent;
 	EditorRendererWidget::EditorRendererWidget(QWidget* parent)
 		: QOpenGLWidget(parent), m_MousePos(std::make_shared<MousePos>(0.0f, 0.0f)), m_MouseAngle(std::make_shared<MouseAngle>(0.0f, 0.0f))
 	{}
@@ -27,13 +30,14 @@ namespace Stone
 
 	void EditorRendererWidget::initializeGL()
 	{
-        
         PublicSingleton<Engine>::getInstance().renderInitialize();
         PublicSingleton<Engine>::getInstance().logicalInitialize();
         QtImGui::initialize(this);
 
         std::string filename = "../../../../data/drycreek.tif";
         testmesh = new TiffMesh(filename);
+        transformcomponent = new TransformComponent();
+        transformcomponent->Scale = { 0.001, 0.001, 0.001 };
 	}
 
 	void EditorRendererWidget::resizeGL(int w, int h)
@@ -50,6 +54,7 @@ namespace Stone
         PublicSingleton<Renderer>::getInstance().begin();
         PublicSingleton<Scene>::getInstance().renderTick();
         //_texture->bind(0);
+        transformcomponent->bind(2);
         PublicSingleton<Renderer>::getInstance().render(testmesh);
 
         PublicSingleton<Renderer>::getInstance().end(defaultFramebufferObject());

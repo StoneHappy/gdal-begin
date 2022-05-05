@@ -291,7 +291,7 @@ public:
         double XORIGIN, YORIGIN;
         int W, H;
         getRawValuesFromFile(filename, vecs, min, max, xres, yres, projection, XORIGIN, YORIGIN, W, H);
-
+        std::cout << "max = " << max << std::endl;
         // Time to construct a height map based on the xres and yres
         for (int i = 0; i < vecs.size() - 1; i++)
         {
@@ -299,6 +299,7 @@ public:
             {
 
                 float UL = (float)(vecs[i][j]) / (float)(max); // Upper left
+                
                 float LL = (float)(vecs[i + 1][j]) / (float)(max); // Lower left
                 float UR = (float)(vecs[i][j + 1]) / (float)(max); // Upper right
                 float LR = (float)(vecs[i + 1][j + 1]) / (float)(max); // Lower right
@@ -325,10 +326,10 @@ public:
                 vec3 URV = { i * xres, UR * max, (j + 1) * yres };
                 vec3 LRV = { (i + 1) * xres, LR * max, (j + 1) * yres };
 
-                v.push_back(vcg::Point3f(i * xres, UL, j * yres));
-                v.push_back(vcg::Point3f((i + 1) * xres, LL, j * yres));
-                v.push_back(vcg::Point3f(i * xres, UR, (j + 1) * yres));
-                v.push_back(vcg::Point3f((i + 1) * xres, LR, (j + 1) * yres));
+                v.push_back(vcg::Point3f(ULV.x, ULV.y, ULV.z));
+                v.push_back(vcg::Point3f(LLV.x, LLV.y, LLV.z));
+                v.push_back(vcg::Point3f(URV.x, URV.y, URV.z));
+                v.push_back(vcg::Point3f(LRV.x, LRV.y, LRV.z));
                 indexVec.push_back(vcg::Point3i(v.size() - 4, v.size() - 1, v.size() - 2));
                 indexVec.push_back(vcg::Point3i(v.size() - 4, v.size() - 3, v.size() - 1));
             }
