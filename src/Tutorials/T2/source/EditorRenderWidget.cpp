@@ -52,13 +52,44 @@ namespace Stone
         timer.start();
         PublicSingleton<Engine>::getInstance().logicalTick();
         PublicSingleton<Renderer>::getInstance().begin();
+        
         PublicSingleton<Scene>::getInstance().renderTick();
         //_texture->bind(0);
         transformcomponent->bind(2);
+
+        QtImGui::newFrame();
+        ImGuizmo::BeginFrame();
+        ImGuizmo::SetOrthographic(false);
+        int x, y, width, height;
+        const QRect& geom = this->geometry();
+        x = geom.x();
+        y = geom.y();
+        width = geom.width();
+        height = geom.height();
+        ImGuizmo::SetRect(x, y, width, height);
+        auto& view = PublicSingletonInstance(EditorCamera).getViewMatrix();
+        auto& proj = PublicSingletonInstance(EditorCamera).getProjMatrix();
+        glm::mat4 testMatrix = glm::mat4(1);
+        ImGuizmo::DrawGrid(glm::value_ptr(view), glm::value_ptr(proj), glm::value_ptr(testMatrix), 100.f);
+        ImGui::Render();
+        QtImGui::render();
+
         PublicSingleton<Renderer>::getInstance().render(testmesh);
 
+        QtImGui::newFrame();
+        ImGuizmo::BeginFrame();
+        ImGuizmo::SetOrthographic(false);
+        ImGuizmo::ViewManipulate(glm::value_ptr(view), 8.f, ImVec2(x + width - width * 0.1, 0), ImVec2(width * 0.1, width * 0.1), 0x10101010);
+        PublicSingletonInstance(EditorCamera).updateBuffer();
+        ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(proj), ImGuizmo::OPERATION::ROTATE, ImGuizmo::LOCAL, glm::value_ptr(testMatrix));
+        ImGui::Text("Hello");
+        float aaa = 0.0f;
+        ImGui::DragFloat3("Light Pos", (float*)&(PublicSingletonInstance(GLobalLight).m_BlockData.Position));
+        PublicSingletonInstance(GLobalLight).updateBuffer();
+        ImGui::Render();
+        QtImGui::render();
+
         PublicSingleton<Renderer>::getInstance().end(defaultFramebufferObject());
-        renderImGui();
         update();
         PublicSingleton<Engine>::getInstance().DeltaTime = timer.nsecsElapsed()* 1.0e-9f;
 	}
@@ -133,6 +164,7 @@ namespace Stone
         glm::mat4 testMatrix = glm::mat4(1);
         ImGuizmo::ViewManipulate(glm::value_ptr(view), 8.f, ImVec2(x + width - width * 0.1, 0), ImVec2(width * 0.1, width * 0.1), 0x10101010);
         PublicSingletonInstance(EditorCamera).updateBuffer();
+        ImGuizmo::DrawGrid(glm::value_ptr(view), glm::value_ptr(proj), glm::value_ptr(testMatrix), 100.f);
         ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(proj), ImGuizmo::OPERATION::ROTATE, ImGuizmo::LOCAL, glm::value_ptr(testMatrix));
         ImGui::Text("Hello");
         float aaa = 0.0f;
