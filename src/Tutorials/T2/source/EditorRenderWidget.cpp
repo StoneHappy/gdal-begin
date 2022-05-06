@@ -4,6 +4,7 @@
 #include <Core/Base/macro.h>
 #include <Engine.h>
 #include <Function/Render/Interface/Renderer.h>
+#include <Function/Render/Interface/Shader.h>
 #include <Function/Event/EventSystem.h>
 #include <Function/Scene/EditCamera.h>
 #include <Function/Scene/Scene.h>
@@ -53,7 +54,8 @@ namespace Stone
         PublicSingleton<Engine>::getInstance().logicalTick();
         PublicSingleton<Renderer>::getInstance().begin();
         
-        PublicSingleton<Scene>::getInstance().renderTick();
+        PublicSingleton<EditorCamera>::getInstance().bind();
+        PublicSingleton<ShaderPool>::getInstance().get("TiffShader")->bind();
         //_texture->bind(0);
         transformcomponent->bind(2);
 
