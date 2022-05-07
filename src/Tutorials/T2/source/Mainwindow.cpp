@@ -24,6 +24,8 @@ namespace Stone
 
 
         connect(ui->actionImportMesh, &QAction::triggered, this, &MainWindow::importMesh);
+        connect(ui->actionTiffShader, &QAction::triggered, this, &MainWindow::soltSetTiffShader);
+        connect(ui->actionMeshShader, &QAction::triggered, this, &MainWindow::soltSetMeshShader);
     }
 
     MainWindow::~MainWindow()
@@ -37,6 +39,16 @@ namespace Stone
     {
         auto testMesh = PublicSingletonInstance(Scene).CreateObject("testMesh");
         testMesh.AddComponent<MeshComponent<VCGMesh>>("D:/datas/ply/scene_mesh_refine.ply");
+    }
+
+    void MainWindow::soltSetTiffShader()
+    {
+        m_RendererWidget->setShader("TiffShader");
+    }
+
+    void MainWindow::soltSetMeshShader()
+    {
+        m_RendererWidget->setShader("MeshShader");
     }
 }
 

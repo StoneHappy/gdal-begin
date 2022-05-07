@@ -18,6 +18,8 @@ namespace Stone
         ~MainWindow();
     public Q_SLOTS:
         void importMesh();
+        void soltSetMeshShader();
+        void soltSetTiffShader();
 
     private:
         Ui::MainWindow* ui;

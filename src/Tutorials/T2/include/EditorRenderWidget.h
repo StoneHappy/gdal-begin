@@ -27,7 +27,14 @@ namespace Stone
 
 		std::shared_ptr<MousePos> m_MousePos;
 		std::shared_ptr<MouseAngle> m_MouseAngle;
+
+		void setShader(const std::string shader)
+		{
+			m_Shader = shader;
+		}
+
 	private:
+		std::string m_Shader = "MeshShader";
 		void renderImGui();
 	};
 }

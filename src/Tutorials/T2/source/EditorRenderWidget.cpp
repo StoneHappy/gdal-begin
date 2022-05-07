@@ -14,6 +14,7 @@
 #include <imgui.h>
 #include <ImGuizmo.h>
 #include <Function/Scene/Light.h>
+#include <Function/Scene/Material.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Resource/Components/Transform.h>
@@ -55,7 +56,11 @@ namespace Stone
         PublicSingleton<Renderer>::getInstance().begin();
         
         PublicSingleton<EditorCamera>::getInstance().bind();
-        PublicSingleton<ShaderPool>::getInstance().get("TiffShader")->bind();
+        PublicSingletonInstance(GLobalLight).bind(1);
+        PublicSingletonInstance(MaterialPool).getMaterial("BasicMaterial")->bind(2);
+        //PublicSingleton<ShaderPool>::getInstance().get("MeshShader")->bind();
+        PublicSingleton<ShaderPool>::getInstance().get(m_Shader)->bind();
+        //PublicSingleton<ShaderPool>::getInstance().get(m_Shader)->bind();
         //_texture->bind(0);
         transformcomponent->bind(2);
 
