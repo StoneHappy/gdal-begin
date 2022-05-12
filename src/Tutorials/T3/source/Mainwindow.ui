@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Editor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportMesh"/>
+   </widget>
+   <widget class="QMenu" name="menuRender">
+    <property name="title">
+     <string>Render</string>
+    </property>
+    <widget class="QMenu" name="menuShader">
+     <property name="title">
+      <string>Shader</string>
+     </property>
+     <addaction name="actionMeshShader"/>
+     <addaction name="actionTiffShader"/>
+    </widget>
+    <addaction name="menuShader"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuRender"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionImportMesh">
+   <property name="text">
+    <string>ImportMesh</string>
+   </property>
+  </action>
+  <action name="actionMeshShader">
+   <property name="text">
+    <string>MeshShader</string>
+   </property>
+  </action>
+  <action name="actionTiffShader">
+   <property name="text">
+    <string>TiffShader</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
