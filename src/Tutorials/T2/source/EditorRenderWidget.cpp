@@ -18,7 +18,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Resource/Components/Transform.h>
-#include "test.h"
+#include <GdalScene/TiffMesh.h>
+//#include "test.h"
 namespace Stone
 {
     TiffMesh* testmesh;
