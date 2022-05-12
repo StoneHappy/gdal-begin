@@ -7,14 +7,16 @@
 #include <gdalwarper.h>
 #include <ogrsf_frmts.h>
 #include <glm/glm.hpp>
-
+#include "TiffMesh.h"
 namespace Stone
 {
 	class Shape : public VCGMesh
 	{
 	public:
-		Shape(const std::string& filename);
+		Shape(const std::string& filename, TiffMesh* tm);
+
 	private:
+		void createMesh(TiffMesh* tm);
 		void load(const std::string& filename);
 
 		OGRSpatialReference* sr;

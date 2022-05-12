@@ -44,7 +44,7 @@ namespace Stone
         testmesh = new TiffMesh(filename);
         transformcomponent = new TransformComponent();
         transformcomponent->Scale = { 0.001, 0.001, 0.001 };
-        testshape = new Shape("D:/codes/gdal_projs/gdal-begin/data/streamDCEW2/stream2.shp");
+        testshape = new Shape("D:/codes/gdal_projs/gdal-begin/data/streamDCEW2/stream2.shp", testmesh);
 	}
 
 	void EditorRendererWidget::resizeGL(int w, int h)

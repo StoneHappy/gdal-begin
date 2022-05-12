@@ -4,11 +4,16 @@
 
 namespace Stone
 {
-	Shape::Shape(const std::string& filename)
+	Shape::Shape(const std::string& filename, TiffMesh* tm)
 	{
         load(filename);
+        createMesh(tm);
 	}
-	void Shape::load(const std::string& filename)
+    void Shape::createMesh(TiffMesh* tm)
+    {
+        
+    }
+    void Shape::load(const std::string& filename)
 	{
         OGRRegisterAll();
         GDALDataset* poDS;
